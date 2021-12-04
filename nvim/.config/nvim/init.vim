@@ -51,7 +51,7 @@ set clipboard=unnamed
 " Add asterisks in block comments
 set formatoptions+=r
 
-let mapleader=","
+let mapleader = " "
 
 " Format a json file using jq
 nnoremap fj :%!jq .<CR> 
@@ -59,6 +59,11 @@ nnoremap fj :%!jq .<CR>
 function! ClearSearch()
   let @/ = ""
 endfunction
+
+" clear search
+nnoremap <leader>rc :source ~/.config/nvim/init.vim<CR>
+nnoremap <leader>q :let @/ = ""<CR>
+nnoremap <leader>b :!echo hello<CR>
 
 " buffers
 nnoremap nb :bnext<cr>
