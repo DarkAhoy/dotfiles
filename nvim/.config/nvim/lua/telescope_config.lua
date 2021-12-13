@@ -1,7 +1,7 @@
 require("telescope").setup {  
   defaults = {
     file_ignore_patterns = {
-      "build/","bin/"
+      "build/","bin/", ".git/"
     } 
   }, 
   pickers = {
@@ -11,6 +11,7 @@ require("telescope").setup {
                   ["<c-d>"] = require("telescope.actions").delete_buffer
                 }
             }
-        }
+        },
+        find_files = {hidden = true}
      }
 }
