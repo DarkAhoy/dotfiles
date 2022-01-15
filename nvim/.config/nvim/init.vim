@@ -66,6 +66,7 @@ nnoremap nb :bnext<cr>
 nnoremap pb :bprevious<cr>
 
 " plugins
+let g:plug_home = "~/.config/nvim/plugged/"
 call plug#begin()
 source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/coc.vim
