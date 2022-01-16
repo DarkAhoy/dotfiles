@@ -6,6 +6,10 @@ apt_install () {
    apt install -y $1
 }
 
+add_repo () {
+   add-apt-repository -y $1
+}
+
 git_make_install() {
    pushd $1
    git clone $2
@@ -18,13 +22,19 @@ git_make_install() {
 install_all_deps() {
    for package in $(cat apt-packages | grep -v "^#.*") 
    do	
-	apt_install $package
+	if [[ $package == *"|"* ]]; then
+		read -r ppa_repo package <<<$(echo $package | awk -F '|' '{print $1" "$2}');
+		add_repo $ppa_repo
+		apt_install $package
+	else		  
+		apt_install $package
+	fi
    done
 
    for git_line in $(cat git-make-install | grep -v "#.*")
    do
-	read -r destination repo_path dir_name <<<$(echo $git_line | awk -F '|' '{print $1" "$2" "$3}');
-	git_make_install $destination $repo_path $dir_name 
+	    read -r destination repo_path dir_name <<<$(echo $git_line | awk -F '|' '{print $1" "$2" "$3}');
+	    git_make_install $destination $repo_path $dir_name 
    done  
 }
 
