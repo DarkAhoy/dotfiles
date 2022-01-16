@@ -38,6 +38,11 @@ install_all_deps() {
    done  
 }
 
+install_kitty() {
+   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+   ln -sf ~/.local/kitty.app/bin/kitty /usr/local/bin/kitty    
+}
+
 configure_shell() {
    chsh -s $(which zsh)
    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -46,6 +51,7 @@ configure_shell() {
 main() {
 	install_all_deps
 	configure_shell 
+	install_kitty
 }
 
 

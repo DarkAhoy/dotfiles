@@ -23,13 +23,13 @@ font pango:monospace 24
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-bindsym $alt+space exec dmenu_run
+bindsym $alt+space exec rofi -show run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -127,8 +127,10 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec_always --no-startup-id $OME/.config/polybar/launch.sh
-for_window [title="dmenu"] floating enable
-
+exec --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id compton -b 
+exec --no-startup-id python3 ~/.config/i3/background.py
 bindsym $mod+c exec "/opt/google/chrome/chrome"
 for_window [class="Google-chrome"] move container to workspace 2
+for_window[class="kitty" instance="kitty" window_type="normal"] floating disable
+
