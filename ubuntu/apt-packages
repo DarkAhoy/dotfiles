@@ -1,6 +1,9 @@
 zsh
 fonts-powerline
 stow
+xclip
+tmux
+curl
 ppa:neovim-ppa/unstable|neovim
 #i3-gaps
 i3

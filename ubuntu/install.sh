@@ -40,7 +40,7 @@ install_all_deps() {
 
 install_kitty() {
    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-   ln -sf ~/.local/kitty.app/bin/kitty /usr/local/bin/kitty    
+   ln -sf $HOME/.local/kitty.app/bin/kitty /usr/local/bin/kitty    
 }
 
 install_polybar() {
@@ -48,7 +48,7 @@ install_polybar() {
 }
 
 configure_shell() {
-   chsh -s $(which zsh)
+   chsh -s $(which zsh) $SUDO_USER
    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
 
@@ -58,6 +58,7 @@ main() {
 	install_kitty
 	install_polybar
 	install_nvim_deps
+  stow_all
 }
 
 
@@ -65,6 +66,16 @@ install_nvim_deps() {
  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
  nvim +PlugInstall
+}
+
+
+stow_all() {
+   for d in $(cat stow_dirs | grep -v "^#.*")
+   do 
+      pushd ../
+      stow $d
+      popd
+   done
 }
 
 edit_sudoers() {
