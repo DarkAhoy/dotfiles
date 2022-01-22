@@ -49,7 +49,7 @@ install_polybar() {
 
 configure_shell() {
    chsh -s $(which zsh) $SUDO_USER
-   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
 main() {

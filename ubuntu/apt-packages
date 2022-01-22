@@ -7,5 +7,6 @@ curl
 ppa:neovim-ppa/unstable|neovim
 #i3-gaps
 i3
+compton
 rofi
 feh
