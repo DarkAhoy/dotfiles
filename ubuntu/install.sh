@@ -43,6 +43,10 @@ install_kitty() {
    ln -sf ~/.local/kitty.app/bin/kitty /usr/local/bin/kitty    
 }
 
+install_polybar() {
+   ./install_polybar.sh
+}
+
 configure_shell() {
    chsh -s $(which zsh)
    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -52,6 +56,7 @@ main() {
 	install_all_deps
 	configure_shell 
 	install_kitty
+	install_polybar
 }
 
 
