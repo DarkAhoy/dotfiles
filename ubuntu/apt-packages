@@ -1,7 +1,7 @@
 zsh
 fonts-powerline
 stow
-neovim
+ppa:neovim-ppa/unstable|neovim
 #i3-gaps
 i3
 rofi

@@ -57,8 +57,15 @@ main() {
 	configure_shell 
 	install_kitty
 	install_polybar
+	install_nvim_deps
 }
 
+
+install_nvim_deps() {
+ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+ nvim +PlugInstall
+}
 
 edit_sudoers() {
 	if grep -q "env_keep\=.*HOME.*"  /etc/sudoers ; then
@@ -66,7 +73,7 @@ edit_sudoers() {
 	else
 		echo "Defaults:$SUDO_USER env_keep=HOME" >> /etc/sudoers
 		echo "Launch script again!"
-		exit(0)
+		exit 0
 	fi
 }
 
