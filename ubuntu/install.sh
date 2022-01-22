@@ -60,6 +60,16 @@ main() {
 }
 
 
+edit_sudoers() {
+	if grep -q "env_keep\=.*HOME.*"  /etc/sudoers ; then
+		echo "HOME in keep_env"
+	else
+		echo "Defaults:$SUDO_USER env_keep=HOME" >> /etc/sudoers
+		echo "Launch script again!"
+		exit(0)
+	fi
+}
+
 command=""
 while getopts "ia" flag
 do
@@ -69,6 +79,7 @@ do
  esac
 done
 
+edit_sudoers
 pushd ~/dotfiles/ubuntu
 if [[ "$command" == "install" ]]; then
  install_all_deps
