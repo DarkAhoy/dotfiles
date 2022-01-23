@@ -10,3 +10,6 @@ i3
 compton
 rofi
 feh
+#google chrome
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main|https://dl.google.com/linux/linux_signing_key.pub|google-chrome-stable
+

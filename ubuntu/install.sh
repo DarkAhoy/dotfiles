@@ -19,13 +19,33 @@ git_make_install() {
    popd
 }
 
+add_key() {
+   curl $1 | apt-key add -
+}
+
+add_repo_ugly() {
+   echo $1 >> /etc/apt/sources.list
+   apt update
+}
+
 install_all_deps() {
-   for package in $(cat apt-packages | grep -v "^#.*") 
-   do	
+   cat apt-packages | grep -v "^#.*" | while read package
+   #for package in $(cat apt-packages | grep -v "^#.*") 
+   do
+      echo "Installing: $package"
 	if [[ $package == *"|"* ]]; then
-		read -r ppa_repo package <<<$(echo $package | awk -F '|' '{print $1" "$2}');
-		add_repo $ppa_repo
-		apt_install $package
+     if [[ $(echo $package | tr -cd "|" | wc -c) == "1" ]]; then
+      echo -e "{RED}ppa_repo is: $ppa_repo package is: $package{NC}" 
+		  IFS='|' read -r ppa_repo package<<<$(echo $package);
+		  add_repo $ppa_repo
+		  apt_install $package
+     else
+      IFS='|' read -r ppa_repo key package<<<$(echo $package)
+      echo -e "{RED} new! ppa_repo is: $ppa_repo key is: $key package is: $package {NC}" 
+		  add_key $key
+      add_repo_ugly "$ppa_repo"
+		  apt_install $package
+     fi 
 	else		  
 		apt_install $package
 	fi
@@ -40,7 +60,8 @@ install_all_deps() {
 
 install_kitty() {
    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-   ln -sf $HOME/.local/kitty.app/bin/kitty /usr/local/bin/kitty    
+   ln -sf $HOME/.local/kitty.app/bin/kitty /usr/local/bin/kitty   
+   chown -R $SUDO_USER:$SUDO_USER $HOME/.config/kitty
 }
 
 install_polybar() {
@@ -50,6 +71,9 @@ install_polybar() {
 configure_shell() {
    chsh -s $(which zsh) $SUDO_USER
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+   if [[ -f $HOME/.zshrc ]]; then 
+      rm $HOME/.zshrc
+   fi
 }
 
 main() {
@@ -63,14 +87,13 @@ main() {
 
 
 install_nvim_deps() {
- sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
- nvim +PlugInstall
+  curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  sudo chown -R $SUDO_USER:$SUDO_USER $HOME/.local/nvim
 }
 
 
 stow_all() {
-   for d in $(cat stow_dirs | grep -v "^#.*")
+   for d in $(cat stow-dirs | grep -v "^#.*")
    do 
       pushd ../
       stow $d
@@ -83,8 +106,8 @@ edit_sudoers() {
 		echo "HOME in keep_env"
 	else
 		echo "Defaults:$SUDO_USER env_keep=HOME" >> /etc/sudoers
-		echo "Launch script again!"
-		exit 0
+    echo "Added keeping home in sudoers file, please run script again"
+    exit 0
 	fi
 }
 
