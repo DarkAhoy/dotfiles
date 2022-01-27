@@ -44,7 +44,7 @@ set backspace=start,eol,indent
 " Finding files - Search down into subfolders
 set path+=**
 set wildignore+=*/node_modules/*
-set clipboard=unnamed
+set clipboard=unnamedplus
 " Add asterisks in block comments
 set formatoptions+=r
 

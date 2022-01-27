@@ -12,10 +12,13 @@ add_repo () {
 
 git_make_install() {
    pushd $1
+   echo "directory now is $(pwd)!"
    git clone $2
-   cd $3
+   echo "directory now is $(pwd)!"
+   pushd $3
    make -j 8
    make install
+   popd
    popd
 }
 
@@ -29,31 +32,30 @@ add_repo_ugly() {
 }
 
 install_all_deps() {
+   
    cat apt-packages | grep -v "^#.*" | while read package
-   #for package in $(cat apt-packages | grep -v "^#.*") 
    do
-      echo "Installing: $package"
-	if [[ $package == *"|"* ]]; then
-     if [[ $(echo $package | tr -cd "|" | wc -c) == "1" ]]; then
-      echo -e "{RED}ppa_repo is: $ppa_repo package is: $package{NC}" 
-		  IFS='|' read -r ppa_repo package<<<$(echo $package);
-		  add_repo $ppa_repo
-		  apt_install $package
-     else
-      IFS='|' read -r ppa_repo key package<<<$(echo $package)
-      echo -e "{RED} new! ppa_repo is: $ppa_repo key is: $key package is: $package {NC}" 
-		  add_key $key
-      add_repo_ugly "$ppa_repo"
-		  apt_install $package
-     fi 
-	else		  
-		apt_install $package
-	fi
+	    if [[ $package == *"|"* ]]; then
+         if [[ $(echo $package | tr -cd "|" | wc -c) == "1" ]]; then
+            echo -e "{RED}ppa_repo is: $ppa_repo package is: $package{NC}" 
+      		  IFS='|' read -r ppa_repo package<<<$(echo $package);
+		        add_repo $ppa_repo
+     		  apt_install $package
+         else
+            IFS='|' read -r ppa_repo key package<<<$(echo $package)
+            echo -e "{RED} new! ppa_repo is: $ppa_repo key is: $key package is: $package {NC}" 
+		        add_key $key
+            add_repo_ugly "$ppa_repo"
+		        apt_install $package
+        fi 
+	    else		  
+		     apt_install $package
+     	fi
    done
 
    for git_line in $(cat git-make-install | grep -v "#.*")
    do
-	    read -r destination repo_path dir_name <<<$(echo $git_line | awk -F '|' '{print $1" "$2" "$3}');
+	    IFS='|' read -r destination repo_path dir_name <<<$(echo $git_line);
 	    git_make_install $destination $repo_path $dir_name 
    done  
 }
@@ -65,7 +67,7 @@ install_kitty() {
 }
 
 install_polybar() {
-   ./install_polybar.sh
+   ./polybar_install.sh
 }
 
 configure_shell() {
