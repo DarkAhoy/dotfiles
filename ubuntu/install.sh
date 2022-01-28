@@ -83,14 +83,14 @@ main() {
 	configure_shell 
 	install_kitty
 	install_polybar
-	install_nvim_deps
   stow_all
+	install_nvim_deps
 }
 
 
 install_nvim_deps() {
   curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  sudo chown -R $SUDO_USER:$SUDO_USER $HOME/.local/nvim
+  sudo chown -R $SUDO_USER:$SUDO_USER $HOME/.local/share/nvim
 }
 
 

@@ -1,10 +1,10 @@
 zsh
-fonts-powerline
 stow
 xclip
 tmux
 curl
 ppa:neovim-ppa/unstable|neovim
+nodejs
 #i3-gaps
 i3
 compton
@@ -12,3 +12,7 @@ rofi
 feh
 #google chrome
 deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main|https://dl.google.com/linux/linux_signing_key.pub|google-chrome-stable
+pulseaudio
+fonts-material-design-icons-iconfont
+fonts-font-awesome
+fonts-powerline
