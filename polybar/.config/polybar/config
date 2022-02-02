@@ -17,15 +17,14 @@ padding-right = 0
 module-margin-left = 3
 module-margin-right = 3
 
-
 separator = |
 
 font-0 = FontAwesome:style=Regular
 font-1 = Noto Sans CJK JP:style=Regular
 font-2 = Material Icons:style=Regular
 
-modules-left = mpd i3 
-modules-right = nm-launcher wireless-network temperature filesystem xkeyboard volume consumation battery date        
+modules-left = i3 
+modules-right = nm-launcher temperature filesystem xkeyboard volume consumation battery date        
 
 wm-restack = i3
 
@@ -76,7 +75,7 @@ format-full = <ramp-capacity> <label-full>
 label-charging = %percentage% %
 label-discharging = %percentage% % 
 ramp-capacity-0 = 
-ramp-capacity-0-foreground = #f53c3c
+ramp-capacity-0-foreground = #1F1F1F
 ramp-capacity-1 = 
 ramp-capacity-1-foreground = #ffa900
 ramp-capacity-2 = 
@@ -137,33 +136,10 @@ bar-used-empty-foreground = #444444
 type = custom/script
 exec = ~/.config/polybar/get_network_data.py
 interval = 10
-
-[module/wireless-network]
-type = internal/network
-interface = wlp0s20f3
-interval = 1.0
-ping-interval = 10
-
-format-connected = <ramp-signal> <label-connected>
-label-connected = %local_ip%    %downspeed%    %upspeed%
-label-disconnected =    not connected
-label-disconnected-foreground = #66
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-
-animation-packetloss-0 = 
-animation-packetloss-0-foreground = #ffa64c
-animation-packetloss-1 = 
-animation-packetloss-1-foreground = ${bar/top.foreground}
-animation-packetloss-framerate = 500
-
+click-left = ~/.config/rofi/scripts/network.sh
 
 [module/volume]
-type = internal/volume
+type = internal/pulseaudio
 ;speaker-mixer = Speaker
 ;headphone-mixer = Headphone
 ;:headphone-id = 9
@@ -177,6 +153,7 @@ ramp-volume-1 = 
 ramp-volume-2 = 
 ramp-volume-3 = 
 
+right-click = pavucontrol
 
 [module/filesystem]
 type = internal/fs

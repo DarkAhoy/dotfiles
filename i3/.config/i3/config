@@ -29,7 +29,8 @@ bindsym $mod+Return exec kitty
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-bindsym $alt+space exec rofi -show run
+bindsym $alt+space exec $HOME/.config/rofi/scripts/show_run.sh 
+bindsym $mod+Shift+s exec  $HOME/.config/rofi/scripts/setup.sh 
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -128,17 +129,18 @@ exec --no-startup-id python3 $HOME/.config/i3/background.py
 exec --no-startup-id $HOME/.config/i3/run_clipboard.sh
 
 bindsym $alt+Shift+v exec $HOME/.config/i3/clipboard_command.sh 
-bindsyn $mod+l exec --no-startup-id i3lock
+bindsym $mod+l exec --no-startup-id $HOME/.config/i3/lock.sh 
 bindsym $mod+c exec google-chrome
 
 for_window [class="Google-chrome"] move container to workspace 2
 for_window[class="kitty" instance="kitty" window_type="dropdown_menu"] floating disable move scratchpad
 for_window[class="copyq"] floating enable
+for_window[class="polybar"] sticky enable
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 4 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 4 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 4 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.config/i3/volume-control -i #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/.config/i3/volume-control -d #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id $HOME/.config/i3/volume-control -m # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness

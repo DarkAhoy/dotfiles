@@ -68,16 +68,18 @@ nnoremap pb :bprevious<cr>
 " plugins
 call plug#begin("~/.config/nvim/plugged/")
 source ~/.config/nvim/plugins/telescope.vim
-source ~/.config/nvim/plugins/coc.vim
+"source ~/.config/nvim/plugins/coc.vim
 source ~/.config/nvim/plugins/fugitive.vim
 source ~/.config/nvim/plugins/onedark.vim
 source ~/.config/nvim/plugins/vimspector.vim
+source ~/.config/nvim/plugins/lsp.vim
 "source ~/.config/nvim/plugins/vim-tmux-nanvigator.vim
 call plug#end()
 
 " sourcing lua files 
-source ~/.config/nvim/lua/telescope_config.lua
+ source ~/.config/nvim/lua/telescope_config.lua
+" source ~/.config/nvim/lua/gopls_config.lua
+source ~/.config/nvim/lua/lsp.lua
 
 set background=dark
 colorscheme onedark
-

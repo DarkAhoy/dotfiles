@@ -3,7 +3,7 @@ stow
 xclip
 tmux
 curl
-ppa:neovim-ppa/unstable|neovim
+neovim
 nodejs
 #i3-gaps
 i3
@@ -16,3 +16,4 @@ pulseaudio
 fonts-material-design-icons-iconfont
 fonts-font-awesome
 fonts-powerline
+imagemagick

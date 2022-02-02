@@ -1,0 +1,45 @@
+#!/bin/bash
+
+get-sinks-with-number () {
+  sink_numbers=($(pactl list sinks | grep "Sink #" | awk -F'#' '{print $2}'))
+  all_sinks=$(pactl list sinks | grep "Name:" | awk '{print $2}')
+  local -n data=$1
+  i=0
+  for sink in $all_sinks; 
+  do
+    data+=("${sink_numbers[i]}|$sink")
+    i=$(($i + 1))
+  done
+}
+
+get-default-sink () {
+  local sinks=()
+  get-sinks-with-number sinks
+  default_sink=$(pactl info | grep "Default Sink:" | awk '{print $3}')
+  for sink in "${sinks[@]}" 
+  do
+    IFS='|' read number name <<<$(echo $sink)
+   # echo "number: $number name: $name"
+    if [[ $name == $default_sink ]]; then
+      echo $(($number))
+      break
+    fi
+  done
+}
+
+
+while getopts "idm" arg; do
+  case $arg in
+    i)
+      echo "pactl set-sink-volume $(get-default-sink) +5%"
+      pactl set-sink-volume $(get-default-sink) +5%
+      ;;
+    d)
+      pactl set-sink-volume  $(get-default-sink) -5%
+      ;;
+    m)
+      pactl set-sink-mute $(get-default-sink) toggle
+      ;;
+  esac
+done
+
