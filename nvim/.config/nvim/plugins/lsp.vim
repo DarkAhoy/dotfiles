@@ -6,7 +6,6 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip'
 
-autocmd BufWritePre *.go lua goimports(1000)
 autocmd FileType go setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
 

@@ -18,8 +18,8 @@ set hlsearch
 set showcmd
 set laststatus=2
 set scrolloff=10
-set expandtab
 set shell=zsh
+set modifiable
 set backupskip=/tmp/*,/private/tmp/*
 set foldmethod=manual
 " Suppress appending <PasteStart> and <PasteEnd> when pasting
@@ -33,6 +33,7 @@ set showmatch
 set ignorecase
 " Be smart when using tabs ;)
 set smarttab
+set noexpandtab
 " indents
 filetype plugin indent on
 set shiftwidth=2
@@ -61,6 +62,9 @@ endfunction
 nnoremap <leader>rc :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>q :let @/ = ""<CR>
 
+"resize vertial
+nnoremap <leader>
+
 " buffers
 nnoremap nb :bnext<cr>
 nnoremap pb :bprevious<cr>
@@ -68,18 +72,24 @@ nnoremap pb :bprevious<cr>
 " plugins
 call plug#begin("~/.config/nvim/plugged/")
 source ~/.config/nvim/plugins/telescope.vim
-"source ~/.config/nvim/plugins/coc.vim
 source ~/.config/nvim/plugins/fugitive.vim
 source ~/.config/nvim/plugins/onedark.vim
 source ~/.config/nvim/plugins/vimspector.vim
 source ~/.config/nvim/plugins/lsp.vim
+source ~/.config/nvim/plugins/nerdtree.vim
+source ~/.config/nvim/plugins/treesitter.vim
 "source ~/.config/nvim/plugins/vim-tmux-nanvigator.vim
 call plug#end()
 
 " sourcing lua files 
  source ~/.config/nvim/lua/telescope_config.lua
+ source ~/.config/nvim/lua/tree_sitter.lua
 " source ~/.config/nvim/lua/gopls_config.lua
 source ~/.config/nvim/lua/lsp.lua
 
 set background=dark
-colorscheme onedark
+colorscheme dogrun
+
+let g:lightline = {
+  \ 'colorscheme': 'dogrun',
+  \ }

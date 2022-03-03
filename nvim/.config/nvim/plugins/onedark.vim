@@ -1,5 +1,8 @@
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'wadackel/vim-dogrun'
+Plug 'itchyny/lightline.vim'
+
 
 if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -11,5 +14,3 @@ endif
 if (has("termguicolors"))
   set termguicolors
 endif
-
-

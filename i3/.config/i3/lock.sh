@@ -1,21 +1,18 @@
 #!/bin/bash
 
 # set the icon and a temporary location for the screenshot to be stored
-#icon="$HOME/images/lock-icon-light.png"
-tmpbg='/tmp/screen.png'
-orig=$HOME/wallpapers/mountain.jpg
-BLURTYPE="2x8"
+icon="$HOME/wallpapers/lock.png"
+orig=/home/amos/wallpapers/screen_saver.png
 
-# blur the screenshot by resizing and scaling back up
-#convert "$orig" -blur $BLURTYPE "$tmpbg"
-
-# overlay the icon onto the screenshot
-#convert "$tmpbg" "$icon" -gravity center -composite "$tmpbg"
+#convert -scale $(xdpyinfo | grep dimensions | cut -d\  -f7) $orig $orig
+#convert -resize 1920X2000 $orig $orig
 
 # lock the screen with the blurred screenshot
-#i3lock -i "$tmpbg"
+#i3lock -i "$orig" --ignore-empty-password 
 
-i3lock -i $orig 2>&1 >> ~/.config/i3/lock.log  &
+
+
+i3lock --ignore-empty-password --color=000000
 LOCK_PID=$!
 (while pidof i3lock ; do
   if (fprintd-verify $USER | grep verify-match); then 

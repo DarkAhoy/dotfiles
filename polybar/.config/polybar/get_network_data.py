@@ -25,8 +25,13 @@ def main():
     net_name = get_network_name(net_data).strip()
     if net_type == "wifi":
         sys.stdout.write(f"  {net_name}")
+        sys.exit(0)
     elif net_type == "ethernet":
         sys.stdout.write("")
+        sys.exit(0)
+    sys.stdout.write("disconnected ")
+    sys.exit(0)
+
 
 if __name__ == "__main__":
     main()

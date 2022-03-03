@@ -130,12 +130,23 @@ exec --no-startup-id $HOME/.config/i3/run_clipboard.sh
 
 bindsym $alt+Shift+v exec $HOME/.config/i3/clipboard_command.sh 
 bindsym $mod+l exec --no-startup-id $HOME/.config/i3/lock.sh 
-bindsym $mod+c exec google-chrome
+bindsym $mod+c exec google-chrome --enable-crashpad --flag-switches-begin --disable-smooth-scrolling --flag-switches-end
+#--user-data-dir="/home/amos/.config/google-chrome/Profile 1/Default"
+bindsym $mod+m exec google-chrome --new-window music.apple.com
+bindsym $mod+d exec slack
 
-for_window [class="Google-chrome"] move container to workspace 2
+
+for_window[title="Apple Music - Google Chrome"] move container to workspace 3
+for_window[title="WhatsApp for Linux"] move container to workspace 3
+for_window[class="Google Chrome"] move container to workspace 2
 for_window[class="kitty" instance="kitty" window_type="dropdown_menu"] floating disable move scratchpad
 for_window[class="copyq"] floating enable
 for_window[class="polybar"] sticky enable
+
+#move entire worksapce
+bindsym $alt+Shift+Right exec i3-msg move workspace to output right
+bindsym $alt+Shift+Left exec i3-msg move workspace to output left
+
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.config/i3/volume-control -i #increase sound volume
