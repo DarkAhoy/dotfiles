@@ -5,7 +5,9 @@ require("telescope").setup {
     },
     mappings = {
       i = {
-         ["<esc>"] = require("telescope.actions").close
+         ["<esc>"] = require("telescope.actions").close,
+         ["<leader>v"] = require("telescope.actions").select_vertical,
+         ["<leader>h"] = require("telescope.actions").select_horizontal
       },
     },
   }, 
@@ -14,11 +16,12 @@ require("telescope").setup {
           mappings = {
               i = {
                   ["<c-d>"] = require("telescope.actions").delete_buffer,
-                  ["<leader>v"] = require("telescope.actions").select_vertical
                 }
             }
         },
-        find_files = {hidden = true}
+        find_files = {
+          hidden = true, 
+        },        
      }
 
 }

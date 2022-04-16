@@ -1,5 +1,3 @@
-# remove windows titles
-for_window [class="^.*"] border pixel 2
 
 set $mod Mod4
 set $alt Mod1
@@ -11,13 +9,6 @@ font pango:monospace 24
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -61,12 +52,6 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -124,7 +109,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 exec --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id compton -b 
+exec --no-startup-id compton -b -f
 exec --no-startup-id python3 $HOME/.config/i3/background.py
 exec --no-startup-id $HOME/.config/i3/run_clipboard.sh
 
@@ -135,7 +120,7 @@ bindsym $mod+c exec google-chrome --enable-crashpad --flag-switches-begin --disa
 bindsym $mod+m exec google-chrome --new-window music.apple.com
 bindsym $mod+d exec slack
 
-
+for_window [class="^.*"] border pixel 1 
 for_window[title="Apple Music - Google Chrome"] move container to workspace 3
 for_window[title="WhatsApp for Linux"] move container to workspace 3
 for_window[class="Google Chrome"] move container to workspace 2
@@ -146,7 +131,6 @@ for_window[class="polybar"] sticky enable
 #move entire worksapce
 bindsym $alt+Shift+Right exec i3-msg move workspace to output right
 bindsym $alt+Shift+Left exec i3-msg move workspace to output left
-
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.config/i3/volume-control -i #increase sound volume

@@ -1,4 +1,5 @@
 Plug 'preservim/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 "nnoremap <leader>p :NERDTreeToggle %<cr>
 

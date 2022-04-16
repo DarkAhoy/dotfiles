@@ -24,7 +24,8 @@ set backupskip=/tmp/*,/private/tmp/*
 set foldmethod=manual
 " Suppress appending <PasteStart> and <PasteEnd> when pasting
 set t_BE=
-
+set splitright
+set splitbelow
 set nosc noru nosm
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -46,11 +47,16 @@ set backspace=start,eol,indent
 set path+=**
 set wildignore+=*/node_modules/*
 set clipboard=unnamedplus
-" Add asterisks in block comments
+
+" Add asteisks in block comments
 set formatoptions+=r
 
-let mapleader = " "
+" stop vim yanking when deleting
+nnoremap d "_d
+nnoremap c "_c
+nnoremap x "_x
 
+let mapleader = " "
 " Format a json file using jq
 nnoremap fj :%!jq .<CR> 
 
@@ -62,10 +68,8 @@ endfunction
 nnoremap <leader>rc :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>q :let @/ = ""<CR>
 
-"resize vertial
-nnoremap <leader>
 
-" buffers
+" buffer
 nnoremap nb :bnext<cr>
 nnoremap pb :bprevious<cr>
 
@@ -78,18 +82,40 @@ source ~/.config/nvim/plugins/vimspector.vim
 source ~/.config/nvim/plugins/lsp.vim
 source ~/.config/nvim/plugins/nerdtree.vim
 source ~/.config/nvim/plugins/treesitter.vim
-"source ~/.config/nvim/plugins/vim-tmux-nanvigator.vim
+source ~/.config/nvim/plugins/icons.vim
 call plug#end()
 
 " sourcing lua files 
- source ~/.config/nvim/lua/telescope_config.lua
- source ~/.config/nvim/lua/tree_sitter.lua
-" source ~/.config/nvim/lua/gopls_config.lua
+source ~/.config/nvim/lua/telescope_config.lua
+source ~/.config/nvim/lua/tree_sitter.lua
 source ~/.config/nvim/lua/lsp.lua
 
 set background=dark
 colorscheme dogrun
 
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+	endif
+  return expand('%')
+endfunction
+
+function! LightLineGit() 
+	return ' ' . FugitiveHead()
+endfunction
+
 let g:lightline = {
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
+  \ },
+  \ 'component_function': {
+  \   'gitbranch': 'LightLineGit',
+  \   'filename': 'LightlineFilename',
+  \ },
   \ 'colorscheme': 'dogrun',
   \ }
+
+
