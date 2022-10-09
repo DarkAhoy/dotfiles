@@ -53,8 +53,10 @@ set formatoptions+=r
 
 " stop vim yanking when deleting
 nnoremap d "_d
+nnoremap dd dd
 nnoremap c "_c
 nnoremap x "_x
+vnoremap d "_d
 
 let mapleader = " "
 " Format a json file using jq
@@ -68,7 +70,6 @@ endfunction
 nnoremap <leader>rc :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>q :let @/ = ""<CR>
 
-
 " buffer
 nnoremap nb :bnext<cr>
 nnoremap pb :bprevious<cr>
@@ -77,21 +78,31 @@ nnoremap pb :bprevious<cr>
 call plug#begin("~/.config/nvim/plugged/")
 source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/fugitive.vim
-source ~/.config/nvim/plugins/onedark.vim
+source ~/.config/nvim/plugins/colors.vim
 source ~/.config/nvim/plugins/vimspector.vim
 source ~/.config/nvim/plugins/lsp.vim
 source ~/.config/nvim/plugins/nerdtree.vim
 source ~/.config/nvim/plugins/treesitter.vim
 source ~/.config/nvim/plugins/icons.vim
+source ~/.config/nvim/plugins/maximizer.vim
+source ~/.config/nvim/plugins/octo.vim
 call plug#end()
 
 " sourcing lua files 
 source ~/.config/nvim/lua/telescope_config.lua
 source ~/.config/nvim/lua/tree_sitter.lua
 source ~/.config/nvim/lua/lsp.lua
+source ~/.config/nvim/lua/split.lua
+source ~/.config/nvim/lua/debugger.lua
+source ~/.config/nvim/lua/octo_config.lua
 
+let g:airline_powerline_fonts = 1
+let g:gruvbox_transparent_bg = 1
 set background=dark
-colorscheme dogrun
+let g:guifont = "Jetbrains Mono"
+colorscheme gruvbox
+highlight Normal guibg=none
+highlight NonText guibg=none
 
 function! LightlineFilename()
   let root = fnamemodify(get(b:, 'git_dir'), ':h')
@@ -111,11 +122,13 @@ let g:lightline = {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'gitbranch', 'readonly', 'filename', 'modified'] ]
   \ },
+  \ 'separator': {'left': '', 'right': ''},
+  \ 'subseparator': {'left': '', 'right': ''},
   \ 'component_function': {
   \   'gitbranch': 'LightLineGit',
   \   'filename': 'LightlineFilename',
   \ },
-  \ 'colorscheme': 'dogrun',
+  \ 'colorscheme': 'nord',
   \ }
 
 

@@ -1,8 +1,10 @@
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'wadackel/vim-dogrun'
+Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'arcticicestudio/nord-vim'
 
 if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >

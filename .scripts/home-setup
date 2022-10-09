@@ -1,0 +1,5 @@
+#!/bin/bash
+
+xrandr --auto 
+move-screen-left DP-3 eDP-1
+$HOME/.config/polybar/launch.sh

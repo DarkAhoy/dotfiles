@@ -32,10 +32,10 @@ while getopts "idm" arg; do
   case $arg in
     i)
       echo "pactl set-sink-volume $(get-default-sink) +5%"
-      pactl set-sink-volume $(get-default-sink) +5%
+      pactl set-sink-volume $(get-default-sink) +1%
       ;;
     d)
-      pactl set-sink-volume  $(get-default-sink) -5%
+      pactl set-sink-volume  $(get-default-sink) -1%
       ;;
     m)
       pactl set-sink-mute $(get-default-sink) toggle

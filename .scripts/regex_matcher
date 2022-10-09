@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import sys
+import re
+
+
+def main():
+    if len(sys.argv) < 2:
+        sys.stdout.write("""
+usage:
+    regex_matcher <regex_pattern>
+""")
+        sys.exit(1)
+
+    pattern = re.compile(sys.argv[1])
+    for line in sys.stdin:
+        match = pattern.match(line)
+        if not match:
+            continue
+        for group in match.groups():    
+            sys.stdout.write(group + " ")
+        sys.stdout.write("\n")
+
+if __name__ == "__main__":
+    main()
+
+

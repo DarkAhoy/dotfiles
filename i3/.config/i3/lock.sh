@@ -11,11 +11,13 @@ orig=/home/amos/wallpapers/screen_saver.png
 #i3lock -i "$orig" --ignore-empty-password 
 
 
-
+killall -SIGUSR1 dunst
 i3lock --ignore-empty-password --color=000000
-LOCK_PID=$!
-(while pidof i3lock ; do
-  if (fprintd-verify $USER | grep verify-match); then 
-    killall i3lock
-  fi
-done) & 
+killall -SIGUSR2 dunst
+#
+#LOCK_PID=$!
+#(while pidof i3lock ; do
+#  if (fprintd-verify $USER | grep verify-match); then 
+#    killall i3lock
+#fi
+#done) & 

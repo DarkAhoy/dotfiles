@@ -6,11 +6,11 @@ require("telescope").setup {
     mappings = {
       i = {
          ["<esc>"] = require("telescope.actions").close,
-         ["<leader>v"] = require("telescope.actions").select_vertical,
-         ["<leader>h"] = require("telescope.actions").select_horizontal
+         ["<c-s>"] = require("telescope.actions").select_vertical,
+         ["<c-i>"] = require("telescope.actions").select_horizontal
       },
     },
-  }, 
+  },
   pickers = {
       buffers = {
           mappings = {
@@ -20,8 +20,8 @@ require("telescope").setup {
             }
         },
         find_files = {
-          hidden = true, 
-        },        
+          hidden = true,
+        },
      }
 
 }

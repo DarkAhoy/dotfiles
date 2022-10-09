@@ -1,6 +1,7 @@
-
 set $mod Mod4
 set $alt Mod1
+
+gaps inner 10
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -45,13 +46,13 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+e layout toggle split
+bindsym $mod+space layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -108,7 +109,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id compton -b -f
 exec --no-startup-id python3 $HOME/.config/i3/background.py
 exec --no-startup-id $HOME/.config/i3/run_clipboard.sh
@@ -116,21 +116,22 @@ exec --no-startup-id $HOME/.config/i3/run_clipboard.sh
 bindsym $alt+Shift+v exec $HOME/.config/i3/clipboard_command.sh 
 bindsym $mod+l exec --no-startup-id $HOME/.config/i3/lock.sh 
 bindsym $mod+c exec google-chrome --enable-crashpad --flag-switches-begin --disable-smooth-scrolling --flag-switches-end
-#--user-data-dir="/home/amos/.config/google-chrome/Profile 1/Default"
 bindsym $mod+m exec google-chrome --new-window music.apple.com
 bindsym $mod+d exec slack
 
 for_window [class="^.*"] border pixel 1 
-for_window[title="Apple Music - Google Chrome"] move container to workspace 3
 for_window[title="WhatsApp for Linux"] move container to workspace 3
 for_window[class="Google Chrome"] move container to workspace 2
 for_window[class="kitty" instance="kitty" window_type="dropdown_menu"] floating disable move scratchpad
 for_window[class="copyq"] floating enable
-for_window[class="polybar"] sticky enable
+for_window[class="cider"] move container to workspace 3
 
 #move entire worksapce
 bindsym $alt+Shift+Right exec i3-msg move workspace to output right
 bindsym $alt+Shift+Left exec i3-msg move workspace to output left
+
+#screenshot 
+bindsym --release $mod+Shift+p exec --no-startup-id /home/amos/.config/i3/screenshot.sh -s $HOME/screenshots
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/.config/i3/volume-control -i #increase sound volume
@@ -146,3 +147,7 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+
+# Set polybar latest
+exec --no-startup-id $HOME/.config/polybar/launch.sh
+for_window[class="polybar"] sticky enable

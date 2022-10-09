@@ -2,9 +2,9 @@ local api = vim.api
 
 require'nvim-treesitter.configs'.setup {
     highlight = {
-      enable = true,                    -- false will disable the whole extension
+      enable = true,       -- false will disable the whole extension
       disable = {},        -- list of language that will be disabled
-      custom_captures = {},               -- mapping of user defined captures to highlight groups
+      custom_captures = {},       -- mapping of user defined captures to highlight groups
     },
     refactor = {
       highlight_definitions = {
@@ -13,7 +13,23 @@ require'nvim-treesitter.configs'.setup {
       highlight_current_scope = {
         enable = true
       },
-    }
+    },
+      textobjects = {
+    select = {
+      enable = true,
+
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+  }
  }
 
 
@@ -30,7 +46,6 @@ function dump(o)
    end
 end 
 
-
 local function starts_with(str, start)
    return str:sub(1, #start) == start
 end
@@ -42,14 +57,19 @@ end
 function get_parent_function_name() 
     local ts_utils = require 'nvim-treesitter.ts_utils'
     local node = ts_utils.get_node_at_cursor()
+    if not node then
+      print("node is nil")
+      return ''
+    end
     while node do
-      if node:type() == 'function_declaration' and node:named() then
+      if ( node:type() == 'function_declaration' or node:type() == 'method_declaration' ) and node:named() then
          local start_line, start_index, end_line, end_index = node:field("name")[1]:range()
          local line = api.nvim_buf_get_lines(0, start_line,end_line+1, true)
          return string.sub(line[1], start_index, end_index)
       end
       node = node:parent()
    end
+   print("could not find function name")
    return ''
 end
 
