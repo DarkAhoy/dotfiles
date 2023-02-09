@@ -3,14 +3,20 @@
 # Terminate already running bar instances
 kill -9 `pgrep polybar`
 
-# Launch Polybar, using default config location ~/.config/polybar/config
 
+# wait for pulseaudio 
+until pid=$(pidof pulseaudio)
+do
+  sleep 1 
+done
+
+# Launch Polybar, using default config location ~/.config/polybar/config
 if type "xrandr"; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar top 2>~/.config/polybar/poly.log &
+  for m in $(xrandr --query | grep " connected" | cut -d " " -f1); do
+    MONITOR=$m polybar -q top 2>~/.config/polybar/poly.log &
   done
 else
-  polybar top 2>~/.config/polybar/poly.log &
+  polybar -q top 2>~/.config/polybar/poly.log &
 fi
 
 echo "Polybar launched..."

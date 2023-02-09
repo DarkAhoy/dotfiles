@@ -2,7 +2,7 @@ local lspconfig = require('lspconfig')
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -48,7 +48,13 @@ lspconfig.sumneko_lua.setup {
   capabilities = capabilities,
 }
 
-local servers = { 'gopls', 'pyright', 'vimls', 'tsserver' }
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_directory = lspconfig.util.root_pattern("pyrightconfig.json")
+}
+
+local servers = { 'gopls', 'vimls', 'tsserver' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -68,7 +74,7 @@ cmp.setup {
   },
   preselect = false,
   completion = {
-    completeopt = 'menu,menuone,noinsert'
+    completeopt = 'menu,menuone,preview'
   },
   formatting = {
     format = lspkind.cmp_format({
@@ -80,7 +86,6 @@ cmp.setup {
           nvim_lsp = "[LSP]",
           buffer = "[BUFFER]",
           path = "[PATH]",
-          cmdline = "[CMD]"
         })[entry.source.name]
         return vim_item
       end,
@@ -94,7 +99,7 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping.complete(nil),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.replace,
+      behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },
     ['<Tab>'] = function(fallback)
@@ -113,9 +118,9 @@ cmp.setup {
     end,
   },
   sources = {
-    { name = 'nvim_lsp' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'cmdline' },
+    { name = 'nvim_lsp', keyword_length=1 },
+    { name = 'buffer' , keyword_length=1 },
+    { name = 'path' , keyword_length=1 },
+    { name = 'nvim_lsp_signature_help'}
   },
 }

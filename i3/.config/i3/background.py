@@ -10,4 +10,4 @@ def get_specific_background(wallpapers_dir=os.path.join(os.path.expanduser("~"),
 
 
 if __name__ == "__main__":
-	os.popen(f"feh --bg-scale {get_specific_background()}")	
+	os.popen(f"feh --bg-fill {get_specific_background()}")	

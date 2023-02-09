@@ -26,6 +26,7 @@ set foldmethod=manual
 set t_BE=
 set splitright
 set splitbelow
+  let @/ = ""
 set nosc noru nosm
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -69,6 +70,7 @@ endfunction
 " clear search
 nnoremap <leader>rc :source ~/.config/nvim/init.vim<CR>
 nnoremap <leader>q :let @/ = ""<CR>
+nnoremap <leader>c :cclose<CR>
 
 " buffer
 nnoremap nb :bnext<cr>
@@ -85,7 +87,6 @@ source ~/.config/nvim/plugins/nerdtree.vim
 source ~/.config/nvim/plugins/treesitter.vim
 source ~/.config/nvim/plugins/icons.vim
 source ~/.config/nvim/plugins/maximizer.vim
-source ~/.config/nvim/plugins/octo.vim
 call plug#end()
 
 " sourcing lua files 
@@ -94,12 +95,11 @@ source ~/.config/nvim/lua/tree_sitter.lua
 source ~/.config/nvim/lua/lsp.lua
 source ~/.config/nvim/lua/split.lua
 source ~/.config/nvim/lua/debugger.lua
-source ~/.config/nvim/lua/octo_config.lua
 
 let g:airline_powerline_fonts = 1
 let g:gruvbox_transparent_bg = 1
 set background=dark
-let g:guifont = "Jetbrains Mono"
+let g:cmdheight = 1
 colorscheme gruvbox
 highlight Normal guibg=none
 highlight NonText guibg=none

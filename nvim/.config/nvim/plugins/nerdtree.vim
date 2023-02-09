@@ -13,6 +13,13 @@ function! NerdTreeToggleFind()
     endif
 endfunction
 
-
 nnoremap <leader>p :call NerdTreeToggleFind()<cr>
 
+let g:WebDevIconsDisableDefaultFolderSymbolColorFromNERDTreeDir = 1
+let g:WebDevIconsDisableDefaultFileSymbolColorFromNERDTreeFile = 1
+
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+
+let g:NERDTreeLimitedSyntax = 1

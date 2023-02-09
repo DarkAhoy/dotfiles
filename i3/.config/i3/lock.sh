@@ -12,7 +12,7 @@ orig=/home/amos/wallpapers/screen_saver.png
 
 
 killall -SIGUSR1 dunst
-i3lock --ignore-empty-password --color=000000
+i3lock --ignore-empty-password --color=000000 & sleep 3 && xset dpms force off
 killall -SIGUSR2 dunst
 #
 #LOCK_PID=$!
