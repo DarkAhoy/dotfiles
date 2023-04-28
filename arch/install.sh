@@ -6,9 +6,9 @@ if [ -f "$ISYAY" ]; then
     echo -e "$COK - yay was located, moving on."
     yay -Suy
 else 
-    git clone https://aur.archlinux.org/yay-git.git &>> $INSTLOG
+    git clone https://aur.archlinux.org/yay-git.git 
     cd yay-git
-    makepkg -si --noconfirm &>> ../$INSTLOG
+    makepkg -si --noconfirm 
     cd ..
 fi
 
